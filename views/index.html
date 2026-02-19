@@ -1,0 +1,32 @@
+<div class="card">
+  <h2>Přidat uživatele</h2>
+  <form id="createForm">
+    <div class="row">
+      <label>Jméno:</label><br />
+      <input name="name" required />
+    </div>
+    <div class="row">
+      <label>Věk:</label><br />
+      <input type="number" name="age" min="0" required />
+    </div>
+    <button type="submit">Přidat</button>
+    <p class="muted" id="createMsg"></p>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Seznam uživatelů</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Jméno</th><th>Věk</th><th>Akce</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+
+  <p class="muted">Tip: Smazání je přes DELETE, editace přes PUT (odesílá se přes JS fetch).</p>
+</div>
