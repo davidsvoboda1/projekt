@@ -1,0 +1,163 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  /* 🔥 FLEX LAYOUT PRO FOOTER DOLE */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  
+    font-family: "Patrick Hand", sans-serif;
+    background: linear-gradient(135deg, #e8ecef, #d6dde3);
+    color: #222;
+  }
+  
+  /* ================= HEADER ================= */
+  
+  .hlavicka {
+    height: 170px;
+    background:
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("https://www.krasnazeme.cz/wp-content/uploads/2022/08/Fyzicka-mapa-celeho-sveta-ke-stazeni-vsechny-staty-sveta.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .nazev-stranky {
+    color: white;
+    font-size: 50px;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+  
+  .logo-poznamka {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    color: white;
+    font-size: 22px;
+  }
+  
+  /* ================= MAIN ================= */
+  
+  .hlavni-obsah {
+    flex: 1; /* 🔥 drží footer dole */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+  }
+  
+  .oblast-tabulky {
+    width: 900px;
+    max-width: 100%;
+  }
+  
+  /* ================= TABULKA ================= */
+  
+  .mreza-data {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  }
+  
+  .mreza-data thead {
+    background: #2f3e46;
+    color: white;
+  }
+  
+  .mreza-data th,
+  .mreza-data td {
+    padding: 18px;
+    text-align: center;  /* ✅ vše vycentrované */
+    vertical-align: middle;
+  }
+  
+  .mreza-data th {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+  
+  .mreza-data tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: 0.2s;
+  }
+  
+  .mreza-data tbody tr:hover {
+    background: #f4f7fa;
+  }
+  
+  /* ================= TLAČÍTKO ================= */
+  
+  .tlacitko-wrapper {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .btn-pridat {
+    background: #3a86ff;
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+  
+  .btn-pridat:hover {
+    background: #265df2;
+    transform: translateY(-3px);
+  }
+  
+  /* ================= FOOTER ================= */
+  
+  .geo-footer {
+    background: #1f2933;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .geo-footer p {
+    margin: 6px 0;
+    font-size: 16px;
+    opacity: 0.8;
+  }
+  
+  /* ================= RESPONSIVE ================= */
+  
+  @media (max-width: 768px) {
+  
+    .nazev-stranky {
+      font-size: 36px;
+    }
+  
+    .mreza-data th,
+    .mreza-data td {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .btn-pridat {
+      width: 100%;
+    }
+  
+  }

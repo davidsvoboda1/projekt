@@ -1,32 +1,59 @@
-<div class="card">
-  <h2>Přidat uživatele</h2>
-  <form id="createForm">
-    <div class="row">
-      <label>Jméno:</label><br />
-      <input name="name" required />
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Země Světa — studentská verze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styl.css">
+</head>
+
+<body>
+
+<header class="hlavicka">
+  <div class="vnitrni-hlavicka">
+    <div class="logo-poznamka">Vavrečka<br>doda logo</div>
+    <h1 class="nazev-stranky">Země Světa</h1>
+  </div>
+</header>
+
+<main class="hlavni-obsah">
+
+  <div class="oblast-tabulky">
+
+    <table class="mreza-data">
+      <thead>
+        <tr>
+          <th>Název země</th>
+          <th>Vlajka</th>
+          <th>Hlavní město</th>
+          <th>Rozloha</th>
+          <th>Počet obyvatel</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="tlacitko-wrapper">
+      <button class="btn-pridat">Přidat</button>
     </div>
-    <div class="row">
-      <label>Věk:</label><br />
-      <input type="number" name="age" min="0" required />
-    </div>
-    <button type="submit">Přidat</button>
-    <p class="muted" id="createMsg"></p>
-  </form>
-</div>
 
-<div class="card">
-  <h2>Seznam uživatelů</h2>
+  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th><th>Jméno</th><th>Věk</th><th>Akce</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{rows}}
-    </tbody>
-  </table>
+</main>
 
-  <p class="muted">Tip: Smazání je přes DELETE, editace přes PUT (odesílá se přes JS fetch).</p>
-</div>
+<footer class="geo-footer">
+  <div class="footer-content">
+    <p>© Všechna práva vyhrazena</p>
+    <p>Vytvořil David Svoboda</p>
+  </div>
+</footer>
+
+</body>
+</html>
