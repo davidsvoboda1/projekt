@@ -1,10 +1,10 @@
 const http = require("http");
-const { handleApiUsers } = require("./routes/apiUsers");
+const { handleApiCountries } = require("./routes/apiCountries");
 const { handlePages } = require("./routes/pages");
 
 const server = http.createServer((req, res) => {
   // 1) API
-  const apiHandled = handleApiUsers(req, res);
+  const apiHandled = handleApiCountries(req, res);
   if (apiHandled !== false) return;
 
   // 2) Pages + public

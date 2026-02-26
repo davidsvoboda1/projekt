@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const store = require("../storage/usersStore");
+const store = require("../storage/countries_Store");
 
 const VIEWS_DIR = path.join(__dirname, "..", "views");
 
@@ -37,18 +37,15 @@ function handlePages(req, res) {
 
   // GET /
 if (req.url === "/" && req.method === "GET") {
-  const users = store.getAll();
+  const countries = store.getAll();
 
-  const rows = users.map(u => `
+  const rows = countries.map(c => `
     <tr>
-      <td>${u.id}</td>
-      <td><a href="/user/${u.id}">${u.name}</a></td>
-      <td>${u.age}</td>
-      <td>
-        <a href="/user/${u.id}">Detail</a>
-        <a href="/edit/${u.id}">Upravit</a>
-        <button data-delete-id="${u.id}">Smazat</button>
-      </td>
+      <td>${c.id}</td>
+      <td>${c.name}</td>
+      <td>${c.capital}</td>
+      <td>${c.area}</td>
+      <td>${c.population}</td>
     </tr>
   `).join("");
 
