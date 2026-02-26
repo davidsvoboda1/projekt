@@ -20,28 +20,42 @@
 
   <div class="oblast-tabulky">
 
-    <table class="mreza-data">
+    <table>
       <thead>
         <tr>
-          <th>Název země</th>
-          <th>Vlajka</th>
-          <th>Hlavní město</th>
-          <th>Rozloha</th>
-          <th>Počet obyvatel</th>
+          <th>ID</th><th>Název Země</th><th>Hlavní město</th><th>Rozloha</th><th>Počet obyvatel</th>
         </tr>
       </thead>
-
       <tbody>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        {{rows}}
       </tbody>
     </table>
 
-    <div class="tlacitko-wrapper">
-      <button class="btn-pridat">Přidat</button>
-    </div>
+ 
+
+    <form id="createForm">
+        <div class="row">
+          <label>Název Země:</label><br />
+          <input type="text" required />
+        </div>
+        <div class="row">
+          <label>Hlavní město:</label><br />
+          <input type="text" required />
+        </div>
+        <div class="row">
+            <label>Rozloha:</label><br />
+            <input type="text" required />
+          </div>
+          <div class="row">
+            <label>Počet obyvatel::</label><br />
+            <input type="number" min="0" required />
+          </div>
+          <div class="tlacitko">
+            <button class="btn-pridat"></a>Přidat</button>
+          </div>
+      </form>
+
+   
 
   </div>
 
