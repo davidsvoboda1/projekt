@@ -69,6 +69,7 @@
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
   }
   
   .mreza-data thead {
@@ -128,6 +129,7 @@
     color: white;
     padding: 40px 20px;
     text-align: center;
+    
   }
   
   .geo-footer p {
@@ -136,22 +138,27 @@
     opacity: 0.8;
   }
   
-  /* ================= RESPONSIVE ================= */
-  
-  @media (max-width: 768px) {
-  
-    .nazev-stranky {
-      font-size: 36px;
-    }
-  
-    .mreza-data th,
-    .mreza-data td {
-      padding: 12px;
-      font-size: 14px;
-    }
-  
-    .btn-pridat {
-      width: 100%;
-    }
-  
-  }
+/* Tlačítka v tabulce */
+.btn-edit {
+    background: #ffbe0b;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.btn-delete {
+    background: #ff006e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-delete:hover {
+    background: #d90429;
+}

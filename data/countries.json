@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Česko",
+    "capital": "Praha",
+    "area": "2672346767823",
+    "population": 23456
+  }
+]

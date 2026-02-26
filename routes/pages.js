@@ -27,6 +27,19 @@ function sendHtml(res, html, status = 200) {
 }
 
 function handlePages(req, res) {
+  // OBSLUHA CSS SOUBORU
+  if (req.url === "/public/styl.css" && req.method === "GET") {
+    const file = path.join(__dirname, "..", "public", "styl.css");
+    try {
+      const css = fs.readFileSync(file, "utf-8");
+      res.writeHead(200, { "Content-Type": "text/css; charset=utf-8" });
+      return res.end(css);
+    } catch (e) {
+      res.writeHead(404);
+      return res.end("CSS not found");
+    }
+  }
+
   // GET /public/app.js
   if (req.url === "/public/app.js" && req.method === "GET") {
     const file = path.join(__dirname, "..", "public", "app.js");
@@ -35,65 +48,66 @@ function handlePages(req, res) {
     return res.end(js);
   }
 
-  // GET /
-if (req.url === "/" && req.method === "GET") {
-  const countries = store.getAll();
+  // GET / - Hlavní stránka s tabulkou
+  if (req.url === "/" && req.method === "GET") {
+    const countries = store.getAll();
 
-  const rows = countries.map(c => `
-    <tr>
-      <td>${c.id}</td>
-      <td>${c.name}</td>
-      <td>${c.capital}</td>
-      <td>${c.area}</td>
-      <td>${c.population}</td>
-    </tr>
-  `).join("");
+    const rows = countries.map(c => `
+      <tr>
+        <td>${c.id}</td>
+        <td>${c.name}</td>
+        <td>${c.capital}</td>
+        <td>${c.area}</td>
+        <td>${c.population}</td>
+        <td>
+          <a href="/edit/${c.id}" class="btn-edit">Upravit</a>
+          <button class="btn-delete" data-delete-id="${c.id}">Smazat</button>
+        </td>
+      </tr>
+    `).join("");
 
-  const indexTpl = loadView("index.html");
-  const content = render(indexTpl, {
-    rows: rows || `<tr><td colspan="4">Žádná data.</td></tr>`
-  });
+    const indexTpl = loadView("index.html");
+    const content = render(indexTpl, {
+      rows: rows || `<tr><td colspan="6">Žádná data.</td></tr>`
+    });
 
-  return sendHtml(
-    res,
-    renderLayout({
-      title: "Uživatelé",
-      heading: "Správa uživatelů",
-      content
-    })
-  );
-}
-
-
-  // GET /user/:id (detail)
-  if (req.url.startsWith("/user/") && req.method === "GET") {
-    const id = Number(req.url.split("/")[2]);
-    const user = store.getById(id);
-    if (!user) {
-      const errTpl = loadView("error.html");
-      const content = render(errTpl, { message: "Uživatel nenalezen." });
-      return sendHtml(res, renderLayout({ title: "Chyba", heading: "Chyba", content }), 404);
-    }
-
-    const tpl = loadView("detail.html");
-    const content = render(tpl, user);
-    return sendHtml(res, renderLayout({ title: "Detail", heading: "Detail uživatele", content }));
+    return sendHtml(
+      res,
+      renderLayout({
+        title: "Země Světa",
+        heading: "",
+        content
+      })
+    );
   }
 
-  // GET /edit/:id (edit formulář)
+  // --- NOVÁ ČÁST: GET /edit/:id ---
   if (req.url.startsWith("/edit/") && req.method === "GET") {
     const id = Number(req.url.split("/")[2]);
-    const user = store.getById(id);
+    const country = store.getById(id); // Načtení dat země podle ID
 
-    if (!user) {
-      const errTpl = loadView("error.html");
-      const content = render(errTpl, { message: "Uživatel nenalezen." });
-      return sendHtml(res, renderLayout({ title: "Chyba", heading: "Chyba", content }), 404);
+    if (!country) {
+      res.writeHead(404);
+      return res.end("Země nenalezena");
     }
 
-    const tpl = loadView("edit.html");
-    const content = render(tpl, user);
-    return sendHtml(res, renderLayout({ title: "Editace", heading: "Editace uživatele", content }));
+    const editTpl = loadView("edit.html"); // Musíš mít vytvořený soubor views/edit.html
+    const content = render(editTpl, {
+      id: country.id,
+      name: country.name,
+      capital: country.capital,
+      area: country.area,
+      population: country.population
+    });
+
+    return sendHtml(
+      res,
+      renderLayout({
+        title: "Editace země",
+        heading: "Upravit zemi",
+        content
+      })
+    );
   }
 
   return false;

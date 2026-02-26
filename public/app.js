@@ -15,14 +15,18 @@ if (createForm) {
   createForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(createForm);
-    const payload = { name: fd.get("name"), age: Number(fd.get("age")) };
+    const payload = {
+      name: fd.get("nazev"),
+      capital: fd.get("hlavni"),
+      area: fd.get("rozloha"),
+      population: Number(fd.get("pocet")),
+    };
 
-    const msg = document.getElementById("createMsg");
     try {
-      await api("/api/users", { method: "POST", body: JSON.stringify(payload) });
+      await api("/api/countries", { method: "POST", body: JSON.stringify(payload) });
       window.location.reload();
     } catch (err) {
-      msg.textContent = "Chyba: " + JSON.stringify(err.data);
+      alert("Chyba: " + JSON.stringify(err.data));
     }
   });
 }
@@ -34,14 +38,18 @@ if (editForm) {
     e.preventDefault();
     const id = editForm.dataset.id;
     const fd = new FormData(editForm);
-    const payload = { name: fd.get("nazev"), capital: fd.get("hlavni"), rozloha: fd.get("rozloha"), pocet: Number(fd.get("pocet"))};
+    const payload = {
+      name: fd.get("nazev"),
+      capital: fd.get("hlavni"),
+      area: fd.get("rozloha"),
+      population: Number(fd.get("pocet")),
+    };
 
-    const msg = document.getElementById("editMsg");
     try {
-      await api(`/api/users/${id}`, { method: "PUT", body: JSON.stringify(payload) });
+      await api(`/api/countries/${id}`, { method: "PUT", body: JSON.stringify(payload) });
       window.location.href = `/user/${id}`;
     } catch (err) {
-      msg.textContent = "Chyba: " + JSON.stringify(err.data);
+      alert("Chyba: " + JSON.stringify(err.data));
     }
   });
 }
@@ -52,11 +60,11 @@ document.addEventListener("click", async (e) => {
   if (!btn) return;
 
   const id = btn.dataset.deleteId;
-  if (!confirm("Opravdu smazat uživatele #" + id + "?")) return;
+  if (!confirm("Opravdu smazat zemi #" + id + "?")) return;
 
   try {
-    await api(`/api/users/${id}`, { method: "DELETE" });
-    window.location.href = "/";
+    await api(`/api/countries/${id}`, { method: "DELETE" });
+    window.location.reload();
   } catch (err) {
     alert("Chyba: " + JSON.stringify(err.data));
   }

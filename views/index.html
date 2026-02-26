@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Země Světa — studentská verze</title>
+  <title>{{title}}</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styl.css">
+  
+  <link rel="stylesheet" href="/public/styl.css">
 </head>
-
 <body>
 
-<header class="hlavicka">
+ <header class="hlavicka">
   <div class="vnitrni-hlavicka">
     <h1 class="nazev-stranky">Země Světa</h1>
   </div>
@@ -20,16 +21,20 @@
 
   <div class="oblast-tabulky">
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th><th>Název Země</th><th>Hlavní město</th><th>Rozloha</th><th>Počet obyvatel</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{rows}}
-      </tbody>
-    </table>
+   <table class="mreza-data">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Název Země</th>
+      <th>Hlavní město</th>
+      <th>Rozloha</th>
+      <th>Počet obyvatel</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{rows}}
+  </tbody>
+</table>
 
  
 
@@ -51,7 +56,7 @@
             <input type="number" min="0" name="pocet" required />
           </div>
           <div class="tlacitko">
-            <button class="btn-pridat"></a>Přidat</button>
+            <button type="submit" class="btn-pridat">Přidat</button>
           </div>
       </form>
 
@@ -68,5 +73,7 @@
   </div>
 </footer>
 
+
 </body>
 </html>
+
