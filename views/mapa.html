@@ -1,0 +1,71 @@
+<div style="margin-bottom: 20px; text-align: center;">
+    <a href="/" style="text-decoration: none; color: #3a86ff; font-weight: bold;">← Zpět na seznam zemí</a>
+</div>
+
+<div id="regions_div" style="width: 100%; height: 600px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"></div>
+
+<div id="raw-data" style="display: none;">{{data}}</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', { 'packages':['geochart'] });
+  google.charts.setOnLoadCallback(drawRegionsMap);
+
+  function drawRegionsMap() {
+    const dataString = document.getElementById('raw-data').innerText;
+    const countries = dataString ? dataString.split(',') : [];
+    
+    console.log('Raw data:', dataString);
+    console.log('Countries array:', countries);
+    
+    // Funkce na odstranění diakritiky
+    function removeDiacritics(str) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    
+    // Překladový slovník pro mapu (bez diakritiky)
+    const translate = {
+        "cesko": "CZ", 
+        "slovensko": "SK", 
+        "nemecko": "DE", 
+        "rakousko": "AT",
+        "francie": "FR", 
+        "italie": "IT", 
+        "spanelsko": "ES", 
+        "usa": "US"
+    };
+
+    const dataArray = [['Country', 'Navštíveno']];
+    
+    if (countries.length > 0) {
+        // Spočítat kolikrát se každá země vyskytuje
+        const countMap = {};
+        countries.forEach(name => {
+            const normalized = removeDiacritics(name.toLowerCase().trim());
+            const code = translate[normalized] || name.trim();
+            console.log('Country:', name, '-> Normalized:', normalized, '-> Code:', code);
+            countMap[code] = (countMap[code] || 0) + 1;
+        });
+        
+        // Přidat do tabulky s počty
+        Object.entries(countMap).forEach(([code, count]) => {
+            dataArray.push([code, count]);
+        });
+    } else {
+        dataArray.push(['', 0]); // Prázdná mapa
+    }
+    
+    console.log('Final data array:', dataArray);
+
+    const data = google.visualization.arrayToDataTable(dataArray);
+    const options = {
+      colorAxis: {minValue: 0, maxValue: 1, colors: ['#e0e0e0', '#ff006e']},
+      backgroundColor: 'transparent',
+      datalessRegionColor: '#e0e0e0',
+      legend: 'none'
+    };
+
+    const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+    chart.draw(data, options);
+  }
+</script>

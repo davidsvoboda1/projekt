@@ -17,6 +17,8 @@
   </div>
 </header>
 
+
+
 <main class="hlavni-obsah">
 
   <div class="oblast-tabulky">
@@ -37,7 +39,6 @@
 </table>
 
  
-
     <form id="createForm">
         <div class="row">
           <label>Název Země:</label><br />
@@ -55,14 +56,13 @@
             <label>Počet obyvatel::</label><br />
             <input type="number" min="0" name="pocet" required />
           </div>
-          <div class="tlacitko">
-            <button type="submit" class="btn-pridat">Přidat</button>
-          </div>
+          
       </form>
 
-   
-
-  </div>
+ <div class="akcni-prvky">
+   <button type="submit" form="createForm" class="btn-pridat">Přidat</button>
+   <a href="/mapa" class="btn-mapa">🗺️ Zobrazit mapu navštívených Zemí</a>
+ </div>
 
 </main>
 

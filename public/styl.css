@@ -100,6 +100,15 @@
   
   /* ================= TLAČÍTKO ================= */
   
+  .akcni-prvky {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
   .tlacitko {
     text-align: center;
     margin-top: 30px;
@@ -107,6 +116,7 @@
   
   .btn-pridat {
     background: #3a86ff;
+    font-family: "Patrick Hand", sans-serif;
     color: white;
     border: none;
     padding: 14px 36px;
@@ -118,6 +128,24 @@
   }
   
   .btn-pridat:hover {
+    background: #265df2;
+    transform: translateY(-3px);
+  }
+
+  .btn-mapa {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #3a86ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-family: "Patrick Hand", sans-serif;
+    transition: 0.3s;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+
+  .btn-mapa:hover {
     background: #265df2;
     transform: translateY(-3px);
   }
