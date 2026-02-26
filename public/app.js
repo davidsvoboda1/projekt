@@ -34,7 +34,7 @@ if (editForm) {
     e.preventDefault();
     const id = editForm.dataset.id;
     const fd = new FormData(editForm);
-    const payload = { name: fd.get("name"), age: Number(fd.get("age")) };
+    const payload = { name: fd.get("nazev"), capital: fd.get("hlavni"), rozloha: fd.get("rozloha"), pocet: Number(fd.get("pocet"))};
 
     const msg = document.getElementById("editMsg");
     try {
