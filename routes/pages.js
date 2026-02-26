@@ -50,6 +50,13 @@ function handlePages(req, res) {
     return res.end(js);
   }
 
+  if (req.url === "/public/mapData.js") {
+    const file = path.join(__dirname, "..", "public", "mapData.js");
+    const js = fs.readFileSync(file, "utf-8");
+    res.writeHead(200, { "Content-Type": "application/javascript" });
+    return res.end(js);
+  }
+
   // --- 2. API PROPOJENÍ ---
   if (req.url.startsWith("/api/")) {
     return handleApiCountries(req, res);

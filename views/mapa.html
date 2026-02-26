@@ -23,37 +23,37 @@
         return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
     
-    // Překladový slovník pro mapu (bez diakritiky)
-    const translate = {
-        "cesko": "CZ", 
-        "slovensko": "SK", 
-        "nemecko": "DE", 
-        "rakousko": "AT",
-        "francie": "FR", 
-        "italie": "IT", 
-        "spanelsko": "ES", 
-        "usa": "US"
-    };
+    // přidáme další sloupec role tooltipu, aby se zobrazoval anglický název a počet
+    const dataArray = [['Country', 'Navštíveno', {role: 'tooltip', p: {html: true}}]];
 
-    const dataArray = [['Country', 'Navštíveno']];
-    
-    if (countries.length > 0) {
-        // Spočítat kolikrát se každá země vyskytuje
-        const countMap = {};
-        countries.forEach(name => {
-            const normalized = removeDiacritics(name.toLowerCase().trim());
-            const code = translate[normalized] || name.trim();
-            console.log('Country:', name, '-> Normalized:', normalized, '-> Code:', code);
-            countMap[code] = (countMap[code] || 0) + 1;
-        });
-        
-        // Přidat do tabulky s počty
-        Object.entries(countMap).forEach(([code, count]) => {
-            dataArray.push([code, count]);
-        });
-    } else {
-        dataArray.push(['', 0]); // Prázdná mapa
-    }
+    // seznam **všech** států pro mapu (anglické názvy, pořádek není důležitý)
+    const allCountries = [
+        'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
+        'Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia and Herzegovina',
+        'Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia','Cameroon','Canada',
+        'Central African Republic','Chad','Chile','China','Colombia','Comoros','Costa Rica','Cote d\'Ivoire','Croatia','Cuba',
+        'Cyprus','Czechia','Democratic Republic of the Congo','Denmark','Djibouti','Dominica','Dominican Republic','Ecuador','Egypt','El Salvador',
+        'Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Micronesia','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Korea','North Macedonia','Norway','Oman','Pakistan','Palau','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Republic of the Congo','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Suriname','Sweden','Switzerland','Syria','Tajikistan','Tanzania','Thailand','Timor-Leste','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+    ];
+
+    // připravíme mapu s počty a naplníme všemi státy nulou
+    const countMap = {};
+    allCountries.forEach(name => { countMap[name] = 0; });
+
+    // spočítáme výskyty vstupního seznamu
+    countries.forEach(name => {
+        const trimmed = name.trim();
+        // používáme přímo upravený text (čekáme angličtinu od uživatele)
+        const eng = trimmed;
+        countMap[eng] = (countMap[eng] || 0) + 1;
+    });
+
+    // vložíme všechny řádky do dataArray
+    Object.entries(countMap).forEach(([region, cnt]) => {
+        // GeoChart už zobrazí název; tooltip necháme pouze s počtem
+        const tool = `<div style=\"padding:5px;\">Navštíveno: ${cnt}</div>`;
+        dataArray.push([region, cnt, tool]);
+    });
     
     console.log('Final data array:', dataArray);
 
@@ -62,7 +62,8 @@
       colorAxis: {minValue: 0, maxValue: 1, colors: ['#e0e0e0', '#ff006e']},
       backgroundColor: 'transparent',
       datalessRegionColor: '#e0e0e0',
-      legend: 'none'
+      legend: 'none',
+      tooltip: { isHtml: true }
     };
 
     const chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
