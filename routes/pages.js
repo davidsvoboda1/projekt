@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const store = require("../storage/countries_Store");
-
+const { handleApiCountries } = require("./apiCountries"); // Důležité pro funkčnost mazání/úprav
 
 const VIEWS_DIR = path.join(__dirname, "..", "views");
 
@@ -28,28 +28,35 @@ function sendHtml(res, html, status = 200) {
 }
 
 function handlePages(req, res) {
-  // OBSLUHA CSS SOUBORU
-  if (req.url === "/public/styl.css" && req.method === "GET") {
+  // 1. OBSLUHA STATICKÝCH SOUBORŮ (CSS, JS, FILTRY)
+  if (req.url === "/public/styl.css") {
     const file = path.join(__dirname, "..", "public", "styl.css");
-    try {
-      const css = fs.readFileSync(file, "utf-8");
-      res.writeHead(200, { "Content-Type": "text/css; charset=utf-8" });
-      return res.end(css);
-    } catch (e) {
-      res.writeHead(404);
-      return res.end("CSS not found");
-    }
+    const css = fs.readFileSync(file, "utf-8");
+    res.writeHead(200, { "Content-Type": "text/css; charset=utf-8" });
+    return res.end(css);
   }
 
-  // GET /public/app.js
-  if (req.url === "/public/app.js" && req.method === "GET") {
+  if (req.url === "/public/app.js") {
     const file = path.join(__dirname, "..", "public", "app.js");
     const js = fs.readFileSync(file, "utf-8");
     res.writeHead(200, { "Content-Type": "application/javascript; charset=utf-8" });
     return res.end(js);
   }
 
-  // GET / - Hlavní stránka s tabulkou
+  // NOVÉ: Obsluha skriptu pro řazení/filtry
+  if (req.url === "/public/filters.js") {
+    const file = path.join(__dirname, "..", "public", "filters.js");
+    const js = fs.readFileSync(file, "utf-8");
+    res.writeHead(200, { "Content-Type": "application/javascript; charset=utf-8" });
+    return res.end(js);
+  }
+
+  // 2. PROPOJENÍ S API (Mazání, Úpravy, Přidávání)
+  if (req.url.startsWith("/api/")) {
+    return handleApiCountries(req, res);
+  }
+
+  // 3. HLAVNÍ STRÁNKA S TABULKOU
   if (req.url === "/" && req.method === "GET") {
     const countries = store.getAll();
 
@@ -72,27 +79,20 @@ function handlePages(req, res) {
       rows: rows || `<tr><td colspan="6">Žádná data.</td></tr>`
     });
 
-    return sendHtml(
-      res,
-      renderLayout({
-        title: "Země Světa",
-        heading: "",
-        content
-      })
-    );
+    return sendHtml(res, renderLayout({ title: "Země Světa", heading: "", content }));
   }
 
-  // --- NOVÁ ČÁST: GET /edit/:id ---
+  // 4. STRÁNKA PRO EDITACI
   if (req.url.startsWith("/edit/") && req.method === "GET") {
     const id = Number(req.url.split("/")[2]);
-    const country = store.getById(id); // Načtení dat země podle ID
+    const country = store.getById(id);
 
     if (!country) {
       res.writeHead(404);
       return res.end("Země nenalezena");
     }
 
-    const editTpl = loadView("edit.html"); // Musíš mít vytvořený soubor views/edit.html
+    const editTpl = loadView("edit.html");
     const content = render(editTpl, {
       id: country.id,
       name: country.name,
@@ -101,14 +101,7 @@ function handlePages(req, res) {
       population: country.population
     });
 
-    return sendHtml(
-      res,
-      renderLayout({
-        title: "Editace země",
-        heading: "Upravit zemi",
-        content
-      })
-    );
+    return sendHtml(res, renderLayout({ title: "Editace země", heading: "Upravit zemi", content }));
   }
 
   return false;
