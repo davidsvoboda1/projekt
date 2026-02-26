@@ -32,11 +32,12 @@ if (createForm) {
 }
 
 // EDIT (PUT /api/users/:id)
+// EDIT (PUT /api/countries/:id)
 const editForm = document.getElementById("editForm");
 if (editForm) {
   editForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const id = editForm.dataset.id;
+    const id = editForm.dataset.id; //
     const fd = new FormData(editForm);
     const payload = {
       name: fd.get("nazev"),
@@ -46,8 +47,8 @@ if (editForm) {
     };
 
     try {
-      await api(`/api/countries/${id}`, { method: "PUT", body: JSON.stringify(payload) });
-      window.location.href = `/user/${id}`;
+      await api(`/api/countries/${id}`, { method: "PUT", body: JSON.stringify(payload) }); //
+      window.location.href = "/"; // <-- OPRAVA: Přesměruje tě zpět na tabulku
     } catch (err) {
       alert("Chyba: " + JSON.stringify(err.data));
     }
