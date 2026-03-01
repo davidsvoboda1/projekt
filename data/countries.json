@@ -14,17 +14,17 @@
     "population": 4
   },
   {
-    "id": 3,
-    "name": "Česko",
-    "capital": "Praha",
-    "area": "2672346767823",
-    "population": 234
-  },
-  {
     "id": 4,
     "name": "Bhutan",
     "capital": "nemam tucha",
     "area": "123",
+    "population": 23
+  },
+  {
+    "id": 5,
+    "name": "Czech republic",
+    "capital": "Praha",
+    "area": "23000 km",
     "population": 23
   }
 ]
