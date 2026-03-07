@@ -1,12 +1,5 @@
 [
   {
-    "id": 4,
-    "name": "Bhutan",
-    "capital": "nemam tucha",
-    "area": "123",
-    "population": 23
-  },
-  {
     "id": 5,
     "name": "Czech republic",
     "capital": "Praha",
@@ -19,5 +12,12 @@
     "capital": "Praha",
     "area": "23000 km",
     "population": 11
+  },
+  {
+    "id": 7,
+    "name": "Česko",
+    "capital": "Praha",
+    "area": "23000 km",
+    "population": 23
   }
 ]
