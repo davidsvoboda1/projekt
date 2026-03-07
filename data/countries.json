@@ -1,19 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Germany",
-    "capital": "Berlin",
-    "area": "23000 km",
-    "population": 7
-  },
-  {
-    "id": 2,
-    "name": "Germany",
-    "capital": "Berlin",
-    "area": "23000 km",
-    "population": 4
-  },
-  {
     "id": 4,
     "name": "Bhutan",
     "capital": "nemam tucha",
@@ -24,7 +10,14 @@
     "id": 5,
     "name": "Czech republic",
     "capital": "Praha",
-    "area": "23000 km",
+    "area": "230000 km",
     "population": 23
+  },
+  {
+    "id": 6,
+    "name": "Česko",
+    "capital": "Praha",
+    "area": "23000 km",
+    "population": 11
   }
 ]
