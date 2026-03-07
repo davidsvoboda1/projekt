@@ -174,7 +174,7 @@
     border-radius: 5px;
     text-decoration: none;
     margin-right: 5px;
-    font-size: 14px;
+    font-size: 14px;  
 }
 
 .btn-delete {
@@ -185,6 +185,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    font-family: "Patrick Hand", sans-serif;
 }
 
 .btn-delete:hover {
