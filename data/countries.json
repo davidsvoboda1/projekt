@@ -1,16 +1,23 @@
 [
   {
-    "id": 7,
-    "name": "Česko",
+    "id": 1,
+    "name": "Czech republic",
     "capital": "Praha",
-    "area": "23000 km",
-    "population": 2323
+    "area": "14578",
+    "population": 10000000
   },
   {
-    "id": 8,
+    "id": 2,
+    "name": "Slovakia",
+    "capital": "Bratislava",
+    "area": "14578",
+    "population": 45
+  },
+  {
+    "id": 3,
     "name": "Germany",
     "capital": "Berlin",
-    "area": "2672346767823",
-    "population": 1
+    "area": "2672346",
+    "population": 60000000
   }
 ]
